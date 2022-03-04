@@ -1,13 +1,16 @@
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
+
+// Redux
 import { useDispatch } from 'react-redux';
 import { borrarProductoAction } from '../actions/productoActions';
-import Swal from 'sweetalert2';
 
 const Producto = ( {producto} ) => {
   
     const dispatch = useDispatch();
+    const history = useHistory(); // Habilitando para redireccion.
     const {id, nombre, precio } = producto;
 
     const confirmarEliminarProducto = id => {
@@ -29,12 +32,17 @@ const Producto = ( {producto} ) => {
 
     }
 
+    // Funcion que redirige
+    const redireccionarEdicion = producto => {
+        history.push(`/productos/editar/${producto.id}`)
+    }
+
     return (
     <tr>
       <td>{nombre}</td>
       <td> <span className="font-weight-bold">${precio}</span></td>
       <td className="acciones">
-        <Link to={`/productos/editar/${id}`} className="btn btn-primary mr-2"><FontAwesomeIcon icon={faPencil} /></Link>
+        <button type='button' className="btn btn-primary mr-2" onClick={() => redireccionarEdicion(producto)}><FontAwesomeIcon icon={faPencil} /></button>
         <button type='button' className='btn btn-danger' onClick={() => confirmarEliminarProducto(id)}><FontAwesomeIcon icon={faTrash}/></button>
       </td>
     </tr>
