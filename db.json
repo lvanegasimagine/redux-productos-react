@@ -34,11 +34,6 @@
       "nombre": "Tequila",
       "precio": 400,
       "id": 7
-    },
-    {
-      "nombre": "admin",
-      "precio": 12,
-      "id": 8
     }
   ]
 }

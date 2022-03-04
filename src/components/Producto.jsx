@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
 import { borrarProductoAction } from '../actions/productoActions';
+import Swal from 'sweetalert2';
 
 const Producto = ( {producto} ) => {
   
@@ -11,7 +12,21 @@ const Producto = ( {producto} ) => {
 
     const confirmarEliminarProducto = id => {
 
-        dispatch(borrarProductoAction(id));
+      Swal.fire({
+        title: '¿Estas Seguro?',
+        text: "Un Producto que se elimina no se puede recuperar",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Proceder',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          dispatch(borrarProductoAction(id));
+        }
+      })
+
     }
 
     return (
