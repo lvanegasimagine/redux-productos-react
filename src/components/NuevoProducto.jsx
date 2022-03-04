@@ -17,6 +17,7 @@ const NuevoProducto = ({history}) => {
 
     const cargando = useSelector(state => state.productos.loading);
     const error = useSelector(state => state.productos.error);
+    const alerta = useSelector(state => state.alerta.alerta);
 
     const submitNuevoProducto = e => {
         e.preventDefault();
@@ -45,6 +46,9 @@ const NuevoProducto = ({history}) => {
                     <h2 className="text-center mb-4 font-weight-bold">
                         Agregar Nuevo Producto
                     </h2>
+                    {
+                        alerta ? <p className={alerta.classes}>{alerta.msg}</p> : null
+                    }
                     <form onSubmit={submitNuevoProducto}>
                         <div className="form-group">
                             <label htmlFor="">Nombre Producto</label>
@@ -58,6 +62,9 @@ const NuevoProducto = ({history}) => {
                     </form>
                     {
                         cargando ? <p> Cargando.... </p> : null
+                    }
+                    {
+                        error ? <p>Hubo un errror </p>: null
                     }
                 </div>
             </div>
