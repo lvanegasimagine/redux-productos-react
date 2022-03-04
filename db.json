@@ -39,6 +39,11 @@
       "nombre": "Tequila",
       "precio": 123,
       "id": 8
+    },
+    {
+      "nombre": "tre",
+      "precio": 234,
+      "id": 9
     }
   ]
 }
