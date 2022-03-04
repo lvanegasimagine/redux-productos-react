@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import { lazy, Suspense } from "react";
+
+import Header from "./components/Header";
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+
+//Redux
+import { Provider } from 'react-redux';
+import store from './store';
+
+//Lazy
+const Productos = lazy(() => import("./components/Productos"));
+const NuevoProducto = lazy(() => import("./components/NuevoProducto"));
+const EditarProducto = lazy(() => import("./components/EditarProducto"));
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+    <Provider store={store}>
+      <Header/>
+      <div className="container mt-5">
+      <Suspense fallback={<div>Loading...</div>}>
+        <Switch>
+          <Route exact path="/" component={Productos}/>
+          <Route exact path="/productos/nuevo" component={NuevoProducto}/>
+          <Route exact path="/productos/editar/:id" component={EditarProducto}/>
+        </Switch>
+      </Suspense>
+      </div>
+    </Provider>
+    </Router>
   );
 }
 
 export default App;
+
